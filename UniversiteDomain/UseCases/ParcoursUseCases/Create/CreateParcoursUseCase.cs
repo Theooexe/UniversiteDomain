@@ -31,7 +31,7 @@ public class CreateParcoursUseCase(IParcoursRepository parcoursRepository)
             List<Parcours> existe = await parcoursRepository.FindByConditionAsync(e=>e.NomParcours.Equals(parcours.NomParcours));
 
             // Si un parcours avec le même nom de parcours existe déjà, on lève une exception personnalisée
-            if (existe .Any()) throw new DuplicateNumParcoursException(parcours.NomParcours+ " - ce nom de parcours existe déja");
+            if (existe .Any()) throw new DuplicateNomParcoursException(parcours.NomParcours+ " - ce nom de parcours existe déja");
             
             // L'année de dormation doit etre en 1 et 2
             if (parcours.AnneeFormation < 1 || parcours.AnneeFormation > 2)
