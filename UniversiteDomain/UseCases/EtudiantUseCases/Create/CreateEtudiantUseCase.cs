@@ -27,7 +27,7 @@ public class CreateEtudiantUseCase(IEtudiantRepository etudiantRepository)
             ArgumentNullException.ThrowIfNull(etudiant.Email);
             ArgumentNullException.ThrowIfNull(etudiantRepository);
         
-            // On recherche un étudiant avec le même numéro étudiant
+            // On recherche un étudiant avec le même nom étudiant
             List<Etudiant> existe = await etudiantRepository.FindByConditionAsync(e=>e.NumEtud.Equals(etudiant.NumEtud));
 
             // Si un étudiant avec le même numéro étudiant existe déjà, on lève une exception personnalisée
