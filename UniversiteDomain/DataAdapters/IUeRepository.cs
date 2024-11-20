@@ -2,6 +2,6 @@
 
 namespace UniversiteDomain.DataAdapters;
 
-public interface IUeRepository
+public interface IUeRepository : IRepository<Ue>
 {
 }
