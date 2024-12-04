@@ -27,10 +27,9 @@ public class CreateUeUseCase(IUeRepository ueRepository)
             ArgumentNullException.ThrowIfNull(ue.Intitule);
             ArgumentNullException.ThrowIfNull(ueRepository);
         
-            // On recherche un étudiant avec le même nom étudiant
+     
             List<Ue> existe = await ueRepository.FindByConditionAsync(e=>e.NumeroUe.Equals(ue.NumeroUe));
 
-            // Si un étudiant avec le même numéro étudiant existe déjà, on lève une exception personnalisée
             if (existe .Any()) throw new DuplicateNumeroUeException(ue.NumeroUe+ " - ce numéro d'Ue est déjà affecté à une Ue");
             
         }
