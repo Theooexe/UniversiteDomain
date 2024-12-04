@@ -17,18 +17,18 @@ public class ParcoursUnitTest
     }
 
     [Test]
-    public async Task CreateParcoursUseCase()
+    public async Task CreateParcoursUseCaseTest()
     {
         long idParcours = 1;
         String nomParcours = "Ue 1";
         int anneFormation = 2;
-        
+
         // On crée le parcours qui doit être ajouté en base
         Parcours parcoursAvant = new Parcours{NomParcours = nomParcours, AnneeFormation = anneFormation};
-        
+
         // On initialise une fausse datasource qui va simuler un EtudiantRepository
         var mockParcours = new Mock<IParcoursRepository>();
-        
+
         // Il faut ensuite aller dans le use case pour simuler les appels des fonctions vers la datasource
         // Nous devons simuler FindByCondition et Create
         // On dit à ce mock que le parcours n'existe pas déjà
@@ -38,16 +38,16 @@ public class ParcoursUnitTest
         // On lui dit que l'ajout d'un étudiant renvoie un étudiant avec l'Id 1
         Parcours parcoursFinal =new Parcours{Id=idParcours,NomParcours= nomParcours, AnneeFormation = anneFormation};
         mockParcours.Setup(repo=>repo.CreateAsync(parcoursAvant)).ReturnsAsync(parcoursFinal);
-        
+
         var mockFactory = new Mock<IRepositoryFactory>();
         mockFactory.Setup(facto=>facto.ParcoursRepository()).Returns(mockParcours.Object);
-        
+
         // Création du use case en utilisant le mock comme datasource
         CreateParcoursUseCase useCase=new CreateParcoursUseCase(mockFactory.Object);
-        
+
         // Appel du use case
         var parcoursTeste=await useCase.ExecuteAsync(parcoursAvant);
-        
+
         // Vérification du résultat
         Assert.That(parcoursTeste.Id, Is.EqualTo(parcoursFinal.Id));
         Assert.That(parcoursTeste.NomParcours, Is.EqualTo(parcoursFinal.NomParcours));
