@@ -32,7 +32,7 @@ public class CreateEtudiantUseCase(IRepositoryFactory factory)
             List<Etudiant> existe = await factory.EtudiantRepository().FindByConditionAsync(e=>e.NumEtud.Equals(etudiant.NumEtud));
 
             // Si un étudiant avec le même numéro étudiant existe déjà, on lève une exception personnalisée
-            if (existe .Any()) throw new DuplicateNumEtudException(etudiant.NumEtud+ " - ce numéro d'étudiant est déjà affecté à un étudiant");
+            if (existe is {Count:>1}) throw new DuplicateNumEtudException(etudiant.NumEtud+ " - ce numéro d'étudiant est déjà affecté à un étudiant");
         
             // Vérification du format du mail
             if (!CheckEmail.IsValidEmail(etudiant.Email)) throw new InvalidEmailException(etudiant.Email + " - Email mal formé");
