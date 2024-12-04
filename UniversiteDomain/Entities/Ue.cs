@@ -1,6 +1,5 @@
 ﻿namespace UniversiteDomain.Entities;
 
-
 public class Ue
 {
     public long Id { get; set; }

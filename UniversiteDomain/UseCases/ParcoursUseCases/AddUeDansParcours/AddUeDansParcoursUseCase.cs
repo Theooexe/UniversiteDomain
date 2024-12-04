@@ -3,7 +3,7 @@ using UniversiteDomain.Entities;
 using UniversiteDomain.Exceptions.ParcoursExceptions;
 using UniversiteDomain.Exceptions.UeExceptions;
 
-namespace UniversiteDomain.UseCases.ParcoursUseCases.UeDansParcours;
+namespace UniversiteDomain.UseCases.ParcoursUseCases.AddUeDansParcours;
 
 public class AddUeDansParcoursUseCase(IRepositoryFactory repositoryFactory)
 {
