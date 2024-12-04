@@ -1,6 +1,7 @@
 ﻿using System.Linq.Expressions;
 using Moq;
 using UniversiteDomain.DataAdapters;
+using UniversiteDomain.DataAdapters.DataAdaptersFactory;
 using UniversiteDomain.Entities;
 using UniversiteDomain.UseCases.EtudiantUseCases;
 using UniversiteDomain.UseCases.EtudiantUseCases.Create;
@@ -44,7 +45,7 @@ public class EtudiantUnitTest
         mock.Setup(repoEtudiant=>repoEtudiant.CreateAsync(etudiantSansId)).ReturnsAsync(etudiantCree);
         
         // On crée le bouchon (un faux etudiantRepository). Il est prêt à être utilisé
-        var fauxEtudiantRepository = mock.Object;
+        IEtudiantRepository fauxEtudiantRepository = mock.Object;
         
         // Création du use case en injectant notre faux repository
         CreateEtudiantUseCase useCase=new CreateEtudiantUseCase(fauxEtudiantRepository);
