@@ -1,4 +1,4 @@
-﻿using UniversiteDomain.DataAdapters;
+﻿
 using UniversiteDomain.DataAdapters.DataAdaptersFactory;
 using UniversiteDomain.Entities;
 using UniversiteDomain.Exceptions.EtudiantExceptions;
