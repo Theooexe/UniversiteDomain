@@ -31,9 +31,11 @@ namespace UniversiteDomain.UseCases.NotesUseCases.Create
         {
             await CheckBusinessRules(notes);
 
-            // Vérifier si une note existe déjà pour cet étudiant et cette UE
+            
             var existingNotes = await factory.NotesRepository()
-                .FindByConditionAsync(n => n.EtudiantId == notes.EtudiantId && n.UeId == notes.UeId);
+                                    .FindByConditionAsync(n => n.EtudiantId == notes.EtudiantId && n.UeId == notes.UeId) 
+                                ?? new List<Notes>(); 
+
     
             if (existingNotes.Any()) 
             {
@@ -42,7 +44,7 @@ namespace UniversiteDomain.UseCases.NotesUseCases.Create
 
             // Créer la nouvelle note
             Notes createdNote = await factory.NotesRepository().CreateAsync(notes);
-            await factory.SaveChangesAsync();
+            await factory.NotesRepository().SaveChangesAsync();
             return createdNote;
         }
 
