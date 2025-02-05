@@ -7,6 +7,8 @@ namespace UniversiteEFDataProvider.Repositories;
 
 public class ParcoursRepository : Repository<Parcours>, IParcoursRepository
     {
+        private IParcoursRepository _parcoursRepositoryImplementation;
+
         public ParcoursRepository(UniversiteDbContext context) : base(context)
         {
         }
