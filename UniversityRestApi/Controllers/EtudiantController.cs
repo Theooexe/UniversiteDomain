@@ -23,14 +23,12 @@ namespace UniversityRestApi.Controllers
         {
             return "value";
         }
-
-        // Crée un nouvel étudiant sans parcours
-// POST api/<EtudiantApi>
+        
         [HttpPost]
-        public async Task PostAsync([FromBody] Etudiant etudiant)
+        public async Task<Etudiant> PostAsync([FromBody] Etudiant etudiant)
         {
             CreateEtudiantUseCase uc=new CreateEtudiantUseCase(repositoryFactory);
-            await uc.ExecuteAsync(etudiant);
+            return await uc.ExecuteAsync(etudiant);
         }
 
         // PUT api/<EtudiantController>/5
