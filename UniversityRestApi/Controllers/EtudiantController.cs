@@ -24,7 +24,6 @@ namespace UniversityRestApi.Controllers
             return "value";
         }
         
-        
         [HttpPost]
         public async Task<Etudiant> PostAsync([FromBody] Etudiant etudiant)
         {

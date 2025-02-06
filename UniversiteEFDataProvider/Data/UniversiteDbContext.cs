@@ -1,12 +1,11 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using UniversiteDomain.Entities;
-using UniversiteEFDataProvider.Entities;
+using UniversiteEFDataProvider.Data;
 
 namespace UniversiteEFDataProvider.Data;
- 
-public class UniversiteDbContext : IdentityDbContext<UniversiteUser>
+public class UniversiteDbContext : DbContext
 {
     public static readonly ILoggerFactory consoleLogger = LoggerFactory.Create(builder => { builder.AddConsole(); });
     
@@ -21,10 +20,12 @@ public class UniversiteDbContext : IdentityDbContext<UniversiteUser>
     
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        optionsBuilder.UseLoggerFactory(consoleLogger)  //on lie le contexte avec le système de journalisation
+        optionsBuilder.UseLoggerFactory(consoleLogger)  
             .EnableSensitiveDataLogging() 
             .EnableDetailedErrors();
     }
+    
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         // Propriétés de la table Etudiant
@@ -81,27 +82,12 @@ public class UniversiteDbContext : IdentityDbContext<UniversiteUser>
         modelBuilder.Entity<Notes>()
             .HasOne(n => n.Ue)
             .WithMany(ue => ue.Notes);
-        
-        // Propriétés de la table UniversiteUser
-        //OneToOne vers UniversityUser
-        modelBuilder.Entity<UniversiteUser>()
-            .HasOne<Etudiant>(user => user.Etudiant)
-            .WithOne()
-            .HasForeignKey<Etudiant>();
-        modelBuilder.Entity<Etudiant>()
-            .HasOne<UniversiteUser>()
-            .WithOne(user => user.Etudiant)
-            .HasForeignKey<UniversiteUser>(user => user.EtudiantId);
-        // Permet d'inclure automatiquement l'étudiant dans le user sans avoir besoin de préciser la jointure
-        modelBuilder.Entity<UniversiteUser>().Navigation<Etudiant>(user => user.Etudiant).AutoInclude();
-        modelBuilder.Entity<UniversiteRole>();
     }
-    
-    public DbSet <Parcours>? Parcours { get; set; }
-    public DbSet <Etudiant>? Etudiants { get; set; }
-    public DbSet <Ue>? Ues { get; set; }
-    public DbSet <Notes>? Notes { get; set; }
-    public DbSet <UniversiteUser>? UniversiteUsers { get; set; }
-    public DbSet<UniversiteRole>? UniversiteRoles { get; set; }
-    
+
+
+    public DbSet<Parcours>? Parcours { get; set; }
+    public DbSet<Etudiant>? Etudiants { get; set; }
+    public DbSet<Ue>? Ues { get; set; }
+    public DbSet<Notes>? Notes { get; set; } // Correction du nom ici
+
 }
