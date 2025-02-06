@@ -2,6 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using NuGet.Protocol.Core.Types;
 using UniversiteDomain.DataAdapters;
 using UniversiteDomain.DataAdapters.DataAdaptersFactory;
+using UniversiteDomain.JeuxDeDonnees;
 using UniversiteEFDataProvider.Data;
 using UniversiteEFDataProvider.RepositoryFactories;
 
@@ -56,5 +57,16 @@ using(var scope = app.Services.CreateScope())
     await context.Database.EnsureCreatedAsync();
 }
 
+// Initisation de la base de données
+ILogger loggers = app.Services.GetRequiredService<ILogger<BdBuilder>>();
+loggers.LogInformation("Chargement des données de test");
+using(var scope = app.Services.CreateScope())
+{
+    UniversiteDbContext context = scope.ServiceProvider.GetRequiredService<UniversiteDbContext>();
+    IRepositoryFactory repositoryFactory = scope.ServiceProvider.GetRequiredService<IRepositoryFactory>();   
+    // C'est ici que vous changez le jeu de données pour démarrer sur une base vide par exemple
+    BdBuilder seedBD = new BasicBdBuilder(repositoryFactory);
+    await seedBD.BuildUniversiteBdAsync();
+}
 // Exécution de l'application
 app.Run();
