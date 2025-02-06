@@ -48,7 +48,7 @@ public class RepositoryFactory (UniversiteDbContext context): IRepositoryFactory
     {
         if (_notes == null)
         {
-            _notes = new NoteRepository(context ?? throw new InvalidOperationException());
+            _notes = new NotesRepository(context ?? throw new InvalidOperationException());
         }
         return _notes;
 
@@ -67,3 +67,4 @@ public class RepositoryFactory (UniversiteDbContext context): IRepositoryFactory
         context.Database.EnsureDeleted();
     }
 }
+
