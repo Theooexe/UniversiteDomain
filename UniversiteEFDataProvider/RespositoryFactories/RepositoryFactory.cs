@@ -11,8 +11,6 @@ public class RepositoryFactory (UniversiteDbContext context): IRepositoryFactory
     private IEtudiantRepository? _etudiants;
     private IUeRepository? _ues;
     private INotesRepository? _notes;
-    private IUniversiteUserRepository? _universiteUsers;
-    private IUniversiteRoleRepository? _universiteRoles;
 
     public IParcoursRepository ParcoursRepository()
     {
