@@ -6,6 +6,8 @@ public interface IRepositoryFactory
     IEtudiantRepository EtudiantRepository();
     IUeRepository UeRepository();
     INotesRepository NotesRepository();
+    IUniversiteRoleRepository UniversiteRoleRepository();
+    IUniversiteUserRepository UniversiteUserRepository();
     Task EnsureDeletedAsync();
     Task EnsureCreatedAsync();
     Task SaveChangesAsync();
