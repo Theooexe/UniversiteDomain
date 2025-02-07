@@ -5,7 +5,7 @@ using UniversiteEFDataProvider.Data;
 using UniversiteEFDataProvider.Entities;
 using UniversiteEFDataProvider.Repositories;
 
-namespace UniversiteEFDataProvider.RepositoryFactories;
+namespace UniversiteEFDataProvider.RespositoryFactories;
 
 public class RepositoryFactory(
     UniversiteDbContext context,

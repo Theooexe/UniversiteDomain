@@ -6,7 +6,7 @@ using UniversiteDomain.DataAdapters.DataAdaptersFactory;
 using UniversiteDomain.JeuxDeDonnees;
 using UniversiteEFDataProvider.Data;
 using UniversiteEFDataProvider.Entities;
-using UniversiteEFDataProvider.RepositoryFactories;
+using UniversiteEFDataProvider.RespositoryFactories;
 
 var builder = WebApplication.CreateBuilder(args);
 
