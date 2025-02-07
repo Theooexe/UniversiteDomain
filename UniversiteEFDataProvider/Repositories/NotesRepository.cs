@@ -6,7 +6,7 @@ namespace UniversiteEFDataProvider.Repositories;
 
 public class NotesRepository(UniversiteDbContext context) : Repository<Notes>(context), INotesRepository
 {
-    public async Task AffecterNoteAsync(long idEtudiant, long idUes,long idNote )
+    public async Task AffecterNoteAsync(long idEtudiant, long idUes)
     {
         ArgumentNullException.ThrowIfNull(Context.Etudiants);
         ArgumentNullException.ThrowIfNull(Context.Ues);
@@ -17,6 +17,6 @@ public class NotesRepository(UniversiteDbContext context) : Repository<Notes>(co
     }
     public async Task AffecterNoteAsync(Etudiant etudiant, Parcours parcours , Notes note)
     {
-        await AffecterNoteAsync(etudiant.Id, parcours.Id, note.Id); 
+        await AffecterNoteAsync(etudiant.Id, parcours.Id); 
     }
 }

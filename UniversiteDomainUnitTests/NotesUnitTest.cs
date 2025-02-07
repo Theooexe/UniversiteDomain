@@ -25,7 +25,7 @@ namespace UniversiteDomainUnitTests
             float valeur = 15.5f;
 
             Notes notesSansId = new Notes { Valeur = valeur, EtudiantId = etudiantId, UeId = ueId };
-            Notes notesCree = new Notes { Id = 1, Valeur = valeur, EtudiantId = etudiantId, UeId = ueId };
+            Notes notesCree = new Notes { Valeur = valeur, EtudiantId = etudiantId, UeId = ueId };
 
            
             var mockNotesRepository = new Mock<INotesRepository>();
@@ -57,8 +57,7 @@ namespace UniversiteDomainUnitTests
             CreateNotesUseCase useCase = new CreateNotesUseCase(mockFactory.Object);
             Notes notesTestee = await useCase.ExecuteAsync(notesSansId);
 
-          
-            Assert.That(notesTestee.Id, Is.EqualTo(notesCree.Id));
+            
             Assert.That(notesTestee.Valeur, Is.EqualTo(notesCree.Valeur));
             Assert.That(notesTestee.EtudiantId, Is.EqualTo(etudiantId));
             Assert.That(notesTestee.UeId, Is.EqualTo(ueId));
