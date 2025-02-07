@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using UniversiteDomain.Entities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -31,6 +32,7 @@ public class UniversiteDbContext : IdentityDbContext<UniversiteUser>
         // Propriétés de la table Etudiant
         // Clé primaire
         base.OnModelCreating(modelBuilder);
+        
         modelBuilder.Entity<Etudiant>()
             .HasKey(e => e.Id);
         // ManyToOne vers parcours
@@ -83,6 +85,7 @@ public class UniversiteDbContext : IdentityDbContext<UniversiteUser>
             .HasOne(n => n.Ue)
             .WithMany(ue => ue.Notes);
         
+        
         modelBuilder.Entity<UniversiteUser>()
             .HasOne<Etudiant>(user => user.Etudiant)
             .WithOne()
@@ -91,7 +94,6 @@ public class UniversiteDbContext : IdentityDbContext<UniversiteUser>
             .HasOne<UniversiteUser>()
             .WithOne(user => user.Etudiant)
             .HasForeignKey<UniversiteUser>(user => user.EtudiantId);
-        // Permet d'inclure automatiquement l'étudiant dans le user sans avoir besoin de préciser la jointure
         modelBuilder.Entity<UniversiteUser>().Navigation<Etudiant>(user => user.Etudiant).AutoInclude();
         modelBuilder.Entity<UniversiteRole>();
         

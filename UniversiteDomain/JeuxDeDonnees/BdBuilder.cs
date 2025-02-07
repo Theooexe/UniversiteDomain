@@ -21,16 +21,11 @@ public abstract class BdBuilder(IRepositoryFactory repositoryFactory)
         await InscrireEtudiantsAsync();
         Console.WriteLine("Noter");
         await NoterAsync();
-        
-        // Gestion de la sécurité
-        // Création des rôles
         Console.WriteLine("BuildRoles");
         await BuildRolesAsync();
-        // Création des utilisateurs 
         Console.WriteLine("BuildUsers");
         await BuildUsersAsync();
     }
-
     protected abstract Task RegenererBdAsync();
     protected abstract Task BuildRolesAsync();
     protected abstract Task BuildUsersAsync();

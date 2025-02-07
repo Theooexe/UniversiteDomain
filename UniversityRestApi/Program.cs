@@ -50,7 +50,7 @@ app.UseAuthorization();
 // Ajoute les points d'entrée dans l'API pour s'authentifier, se connecter et se déconnecter
 app.MapIdentityApi<UniversiteUser>();
 
-/*
+
 using(var scope = app.Services.CreateScope())
 {
     // On récupère le logger pour afficher des messages. On l'a mis dans les services de l'application
@@ -66,6 +66,7 @@ using(var scope = app.Services.CreateScope())
     await context.Database.EnsureCreatedAsync();
 }
 
+
 // Initisation de la base de données
 ILogger loggers = app.Services.GetRequiredService<ILogger<BdBuilder>>();
 loggers.LogInformation("Chargement des données de test");
@@ -74,10 +75,12 @@ using(var scope = app.Services.CreateScope())
     UniversiteDbContext context = scope.ServiceProvider.GetRequiredService<UniversiteDbContext>();
     IRepositoryFactory repositoryFactory = scope.ServiceProvider.GetRequiredService<IRepositoryFactory>();   
     // C'est ici que vous changez le jeu de données pour démarrer sur une base vide par exemple
+    
+    
     BdBuilder seedBD = new BasicBdBuilder(repositoryFactory);
     await seedBD.BuildUniversiteBdAsync();
 }
-*/
+
 
 
 
