@@ -1,75 +1,71 @@
-﻿using UniversiteDomain.DataAdapters;
+﻿using Microsoft.AspNetCore.Identity;
+using UniversiteDomain.DataAdapters;
 using UniversiteDomain.DataAdapters.DataAdaptersFactory;
 using UniversiteEFDataProvider.Data;
+using UniversiteEFDataProvider.Entities;
 using UniversiteEFDataProvider.Repositories;
 
 namespace UniversiteEFDataProvider.RepositoryFactories;
 
-public class RepositoryFactory (UniversiteDbContext context): IRepositoryFactory
+public class RepositoryFactory(
+    UniversiteDbContext context,
+    RoleManager<UniversiteRole> roleManager,
+    UserManager<UniversiteUser> userManager
+) : IRepositoryFactory
 {
+    private readonly UniversiteDbContext _context = context;
+    private readonly RoleManager<UniversiteRole> _roleManager = roleManager;
+    private readonly UserManager<UniversiteUser> _userManager = userManager;
+
     private IParcoursRepository? _parcours;
     private IEtudiantRepository? _etudiants;
     private IUeRepository? _ues;
     private INotesRepository? _notes;
+    private IUniversiteRoleRepository? _universiteRole;
+    private IUniversiteUserRepository? _universiteUser;
 
     public IParcoursRepository ParcoursRepository()
     {
-        if (_parcours == null)
-        {
-            _parcours = new ParcoursRepository(context ?? throw new InvalidOperationException());
-        }
-        return _parcours;
+        return _parcours ??= new ParcoursRepository(_context);
     }
 
     public IEtudiantRepository EtudiantRepository()
     {
-        if (_etudiants == null)
-        {
-            _etudiants = new EtudiantRepository(context ?? throw new InvalidOperationException());
-        }
-        return _etudiants;
+        return _etudiants ??= new EtudiantRepository(_context);
     }
 
     public IUeRepository UeRepository()
     {
-        if (_ues == null)
-        {
-            _ues = new UeRepository(context ?? throw new InvalidOperationException());
-        }
-        return _ues;
+        return _ues ??= new UeRepository(_context);
     }
-    
+
     public INotesRepository NotesRepository()
     {
-        if (_notes == null)
-        {
-            _notes = new NotesRepository(context ?? throw new InvalidOperationException());
-        }
-        return _notes;
-
+        return _notes ??= new NotesRepository(_context);
     }
 
     public IUniversiteRoleRepository UniversiteRoleRepository()
     {
-        throw new NotImplementedException();
+        return _universiteRole ??= new UniversiteRoleRepository(_context, _roleManager);
     }
 
     public IUniversiteUserRepository UniversiteUserRepository()
     {
-        throw new NotImplementedException();
+        return _universiteUser ??= new UniversiteUserRepository(_context, _userManager, _roleManager);
     }
 
     public async Task SaveChangesAsync()
     {
-        context.SaveChangesAsync().Wait();
+        await _context.SaveChangesAsync();
     }
+
     public async Task EnsureCreatedAsync()
     {
-        context.Database.EnsureCreated();
+        await _context.Database.EnsureCreatedAsync();
     }
+
     public async Task EnsureDeletedAsync()
     {
-        context.Database.EnsureDeleted();
+        await _context.Database.EnsureDeletedAsync();
     }
 }
-

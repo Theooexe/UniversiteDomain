@@ -32,9 +32,13 @@ builder.Services.AddAuthentication(IdentityConstants.ApplicationScheme)
     .AddBearerToken(IdentityConstants.BearerScheme);
 
 builder.Services.AddIdentityCore<UniversiteUser>()
-    .AddRoles<IdentityRole>()
+    .AddRoles<UniversiteRole>()
     .AddEntityFrameworkStores<UniversiteDbContext>() // Ici, on stocke les users dans la même bd que le reste
     .AddApiEndpoints();
+
+builder.Services.AddScoped<RoleManager<UniversiteRole>>();
+builder.Services.AddScoped<UserManager<UniversiteUser>>();
+
 
 var app = builder.Build();
 
