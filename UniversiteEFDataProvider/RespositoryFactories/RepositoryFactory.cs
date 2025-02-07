@@ -48,7 +48,17 @@ public class RepositoryFactory (UniversiteDbContext context): IRepositoryFactory
         return _notes;
 
     }
-       
+
+    public IUniversiteRoleRepository UniversiteRoleRepository()
+    {
+        throw new NotImplementedException();
+    }
+
+    public IUniversiteUserRepository UniversiteUserRepository()
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task SaveChangesAsync()
     {
         context.SaveChangesAsync().Wait();
