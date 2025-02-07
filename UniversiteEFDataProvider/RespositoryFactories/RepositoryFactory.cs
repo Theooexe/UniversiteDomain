@@ -38,13 +38,8 @@ public class RepositoryFactory (UniversiteDbContext context): IRepositoryFactory
         }
         return _ues;
     }
-
+    
     public INotesRepository NotesRepository()
-    {
-        throw new NotImplementedException();
-    }
-
-    public INotesRepository NoteRepository()
     {
         if (_notes == null)
         {

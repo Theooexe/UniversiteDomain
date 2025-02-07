@@ -64,4 +64,5 @@ using(var scope = app.Services.CreateScope())
     await seedBD.BuildUniversiteBdAsync();
 }
 
+
 app.Run();

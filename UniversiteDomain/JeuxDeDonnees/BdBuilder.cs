@@ -9,7 +9,6 @@ public abstract class BdBuilder(IRepositoryFactory repositoryFactory)
         // Suppression de la BD
         Console.WriteLine("Suppression et recréation de la BD");
         await RegenererBdAsync();
-        
         Console.WriteLine("BuildParcours");
         await BuildParcoursAsync();
         Console.WriteLine("BuidEtudiants");
@@ -25,13 +24,13 @@ public abstract class BdBuilder(IRepositoryFactory repositoryFactory)
         
         // Gestion de la sécurité
         /* A décommenter quand on aura rajouté la sécu
-// Création des rôles
-Console.WriteLine("BuildRoles");
-//await BuildRolesAsync();
-// Création des utilisateurs
-Console.WriteLine("BuildUsers");
-//wait BuildUsersAsync();
-        */
+        // Création des rôles
+        Console.WriteLine("BuildRoles");
+        //await BuildRolesAsync();
+        // Création des utilisateurs
+        Console.WriteLine("BuildUsers");
+        //wait BuildUsersAsync();
+                */
     }
 
     protected abstract Task RegenererBdAsync();

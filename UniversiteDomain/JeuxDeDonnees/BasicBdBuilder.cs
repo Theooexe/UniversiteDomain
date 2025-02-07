@@ -98,15 +98,15 @@ public class BasicBdBuilder(IRepositoryFactory repositoryFactory) : BdBuilder(re
     
     private readonly Notes[] _notes =
     [
-        new Notes { UeId = 1, EtudiantId = 2, Valeur = 12 },
-        new Notes { UeId = 1, EtudiantId = 3, Valeur = (float)8.5 },
-        new Notes { UeId = 1, EtudiantId = 4, Valeur = 16 },
-        new Notes { UeId = 2, EtudiantId = 2, Valeur = 14 },
-        new Notes { UeId = 2, EtudiantId = 3, Valeur = 6 },
-        new Notes { UeId = 3, EtudiantId = 4, Valeur = (float)11.5 },
-        new Notes { UeId = 4, EtudiantId = 1, Valeur = 10 },
-        new Notes { UeId = 4, EtudiantId = 5, Valeur = (float)18.3 },
-        new Notes { UeId = 4, EtudiantId = 6, Valeur = 12 }
+        new Notes {EtudiantId = 2,UeId = 1, Valeur = 12 },
+        new Notes {EtudiantId = 3,UeId = 1, Valeur = (float)8.5 },
+        new Notes {EtudiantId = 4,UeId = 1, Valeur = 16 },
+        new Notes {EtudiantId = 2,UeId = 2, Valeur = 14 },
+        new Notes {EtudiantId = 3,UeId = 2, Valeur = 6 },
+        new Notes {EtudiantId = 4,UeId = 3, Valeur = (float)11.5 },
+        new Notes {EtudiantId = 1,UeId = 4, Valeur = 10 },
+        new Notes {EtudiantId = 5,UeId = 4, Valeur = (float)18.3 },
+        new Notes {EtudiantId = 6,UeId = 4, Valeur = 12 }
     ];
     protected override async Task RegenererBdAsync()
     {
