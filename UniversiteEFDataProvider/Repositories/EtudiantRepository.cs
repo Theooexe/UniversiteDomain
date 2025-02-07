@@ -20,4 +20,9 @@ public class EtudiantRepository(UniversiteDbContext context) : Repository<Etudia
     {
         await AffecterParcoursAsync(etudiant.Id, parcours.Id); 
     }
+
+    public Task<Etudiant?> FindEtudiantCompletAsync(long idEtudiant)
+    {
+        throw new NotImplementedException();
+    }
 }

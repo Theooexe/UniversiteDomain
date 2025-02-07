@@ -54,7 +54,7 @@ app.UseAuthorization();
 // Ajoute les points d'entrée dans l'API pour s'authentifier, se connecter et se déconnecter
 app.MapIdentityApi<UniversiteUser>();
 
-
+/*
 using(var scope = app.Services.CreateScope())
 {
     var logger = scope.ServiceProvider.GetRequiredService<ILogger<UniversiteDbContext>>();
@@ -65,7 +65,7 @@ using(var scope = app.Services.CreateScope())
     logger.LogInformation("Création de la BD et des tables à partir des entities");
     await context.Database.EnsureCreatedAsync();
 }
-
+*/
 
 // Initisation de la base de données
 ILogger loggers = app.Services.GetRequiredService<ILogger<BdBuilder>>();

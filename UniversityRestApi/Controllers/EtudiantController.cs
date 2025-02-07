@@ -5,7 +5,11 @@ using UniversiteDomain.DataAdapters.DataAdaptersFactory;
 using UniversiteDomain.Dtos;
 using UniversiteDomain.Entities;
 using UniversiteDomain.UseCases.EtudiantUseCases.Create;
+using UniversiteDomain.UseCases.EtudiantUseCases.Delete;
+using UniversiteDomain.UseCases.EtudiantUseCases.Get;
+using UniversiteDomain.UseCases.SecurityUseCases.Create;
 using UniversiteDomain.UseCases.SecurityUseCases.Get;
+using UniversiteEFDataProvider.Entities;
 
 namespace UniversityRestApi.Controllers
 {
@@ -13,26 +17,56 @@ namespace UniversityRestApi.Controllers
     [ApiController]
     public class EtudiantController(IRepositoryFactory repositoryFactory) : ControllerBase
     {
-        // GET: api/<EtudiantController>
-        [HttpGet]
-        public IEnumerable<string> Get()
+    
+        [HttpGet("complet/{id}")]
+        public async Task<ActionResult<EtudiantCompletDto>> GetUnEtudiantCompletAsync(long id)
         {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET api/<EtudiantController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
+            // Identification et authentification
+            string role="";
+            string email="";
+            IUniversiteUser user = null;
+            try
+            {
+                CheckSecu(out role, out email, out user);
+            }
+            catch (Exception e)
+            {
+                return Unauthorized();
+            }
+    
+            GetEtudiantCompletUseCase uc = new GetEtudiantCompletUseCase(repositoryFactory);
+            // Autorisation
+            // On vérifie si l'utilisateur connecté a le droit d'accéder à la ressource
+            if (!uc.IsAuthorized(role, user, id)) return Unauthorized();
+            Etudiant? etud;
+            try
+            {
+                etud = await uc.ExecuteAsync(id);
+            }
+            catch (Exception e)
+            {
+                ModelState.AddModelError(nameof(e), e.Message);
+                return ValidationProblem();
+            }
+            if (etud == null) return NotFound();
+            return new EtudiantCompletDto().ToDto(etud);
         }
         
 
         [HttpPost]
         public async Task<ActionResult<EtudiantDto>> PostAsync([FromBody] EtudiantDto etudiantDto)
         {
-            CreateEtudiantUseCase createEtudiantUc = new CreateEtudiantUseCase(repositoryFactory);           
+            CreateEtudiantUseCase createEtudiantUc = new CreateEtudiantUseCase(repositoryFactory);
+            CreateUniversiteUserUseCase createUserUc = new CreateUniversiteUserUseCase(repositoryFactory);
+
+            string role="";
+            string email="";
+            IUniversiteUser user = null;
+            CheckSecu(out role, out email, out user);
+            if (!createEtudiantUc.IsAuthorized(role) || !createUserUc.IsAuthorized(role)) return Unauthorized();
+    
             Etudiant etud = etudiantDto.ToEntity();
+    
             try
             {
                 etud = await createEtudiantUc.ExecuteAsync(etud);
@@ -42,6 +76,22 @@ namespace UniversityRestApi.Controllers
                 ModelState.AddModelError(nameof(e), e.Message);
                 return ValidationProblem();
             }
+
+            try
+            {
+                // Création du user associé
+                user = new UniversiteUser { UserName = etudiantDto.Email, Email = etudiantDto.Email, Etudiant = etud };
+                // Un créé l'utilisateur avec un mot de passe par défaut et un rôle étudiant
+                await createUserUc.ExecuteAsync(etud.Email, etud.Email, "Miage2025#", Roles.Etudiant, etud); 
+            }
+            catch (Exception e)
+            {
+                // On supprime l'étudiant que l'on vient de créer. Sinon on a un étudiant mais pas de user associé
+                await new DeleteEtudiantUseCase(repositoryFactory).ExecuteAsync(etud.Id);
+                ModelState.AddModelError(nameof(e), e.Message);
+                return ValidationProblem();
+            }
+
             EtudiantDto dto = new EtudiantDto().ToDto(etud);
             return CreatedAtAction(nameof(GetUnEtudiant), new { id = dto.Id }, dto);
         }
