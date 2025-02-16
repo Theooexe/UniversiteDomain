@@ -30,4 +30,9 @@ public class UeRepository(UniversiteDbContext context) : Repository<Ue>(context)
     {
         await AjouterUeAuParcoursAsync(ue.Id, parcours.Id);
     }
+
+    public Task<Ue?> FindUeAsync(long id)
+    {
+        throw new NotImplementedException();
+    }
 }

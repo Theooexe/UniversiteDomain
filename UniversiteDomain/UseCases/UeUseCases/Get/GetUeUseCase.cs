@@ -1,17 +1,27 @@
-﻿using UniversiteDomain.DataAdapters.DataAdaptersFactory;
+﻿using UniversiteDomain.DataAdapters;
+using UniversiteDomain.DataAdapters.DataAdaptersFactory;
 using UniversiteDomain.Entities;
 
 namespace UniversiteDomain.UseCases.UeUseCases.Get;
 
-public class GetUeUseCase(IRepositoryFactory repositoryFactory)
+public class GetUeUseCase(IRepositoryFactory factory)
 {
-    public bool IsAuthorized(string role, IUniversiteUser user, long id)
+    public async Task<Ue?> ExecuteAsync(long Id)
     {
-        throw new NotImplementedException();
+        await CheckBusinessRules();
+        Ue? ue = await factory.UeRepository().FindUeAsync(Id);
+        return ue;
     }
-
-    public async Task<Ue?> ExecuteAsync(long id)
+    
+    private async Task CheckBusinessRules()
     {
-        throw new NotImplementedException();
+        ArgumentNullException.ThrowIfNull(factory);
+        IUeRepository parcoursRepository=factory.UeRepository();
+        ArgumentNullException.ThrowIfNull(parcoursRepository);
+    }
+    public bool IsAuthorized(string role, IUniversiteUser user, long idEtudiant)
+    {
+        if (role.Equals(Roles.Scolarite) || role.Equals(Roles.Responsable)) return true;
+        return user.Etudiant!=null && role.Equals(Roles.Etudiant) && user.Etudiant.Id==idEtudiant;
     }
 }
