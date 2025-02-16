@@ -4,7 +4,7 @@ namespace UniversiteDomain.Dtos;
 
 public class NotesDto
 {
-    public double Valeur { get; set; }
+    public float Valeur { get; set; }
 
     public NotesDto ToDto(Notes notes)
     {

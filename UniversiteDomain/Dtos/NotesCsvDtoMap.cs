@@ -12,7 +12,7 @@ public sealed class NotesCsvDtoMap : ClassMap<NotesCsvDto>
         Map(m => m.Nom).Name("Nom");
         Map(m => m.Prenom).Name("Prenom");
         Map(m => m.Email).Name("Email");
-        Map(m => m.Note).Name("Note").Optional();
+        Map(m => m.Note).Name("Note");
         Map(m => m.IntituleUE).Name("IntituleUE");
     }
 }

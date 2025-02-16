@@ -22,7 +22,7 @@ namespace UniversiteDomainUnitTests
           
             long etudiantId = 1;
             long ueId = 1;
-            float valeur = 15.5f;
+            float valeur = 15;
 
             Notes notesSansId = new Notes { Valeur = valeur, EtudiantId = etudiantId, UeId = ueId };
             Notes notesCree = new Notes { Valeur = valeur, EtudiantId = etudiantId, UeId = ueId };
@@ -73,7 +73,7 @@ namespace UniversiteDomainUnitTests
            
             long etudiantId = 1;
             long ueId = 1;
-            float valeur = 15.5f;
+            float valeur = 15;
             
             
             Notes notesSansId = new Notes { Valeur = valeur, EtudiantId = etudiantId, UeId = ueId};
