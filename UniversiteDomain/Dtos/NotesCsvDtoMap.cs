@@ -1,4 +1,6 @@
 ﻿using CsvHelper.Configuration;
+using UniversiteDomain.Entities;
+
 namespace UniversiteDomain.Dtos;
 
 public sealed class NotesCsvDtoMap : ClassMap<NotesCsvDto>

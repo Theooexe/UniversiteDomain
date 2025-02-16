@@ -2,8 +2,7 @@
 {
     public class Notes
     {
-        public float Valeur { get; set; }
-        
+        public double Valeur { get; set; }
         public long EtudiantId { get; set; }
         public Etudiant Etudiant { get; set; }  
 

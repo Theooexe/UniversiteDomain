@@ -38,7 +38,9 @@ namespace UniversiteDomain.UseCases.NoteUseCases.Create
             using var csv = new CsvReader(reader, new CsvConfiguration(CultureInfo.InvariantCulture)
             {
                 HeaderValidated = null
-            });            
+            });
+
+            // Enregistrer le ClassMap avec le TypeConverter personnalisé
             csv.Context.RegisterClassMap<NotesCsvDtoMap>();
 
             var records = csv.GetRecords<NotesCsvDto>().ToList();  // Lecture du CSV dans une liste de DTO
