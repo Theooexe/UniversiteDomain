@@ -55,38 +55,52 @@ namespace UniversiteDomain.UseCases.NoteUseCases.Create
             }
         }
 
-        // Traitement pour chaque enregistrement de note
         private async Task ProcessNoteAsync(NotesCsvDto record, long numeroUe)
         {
             await CheckBusinessRules(record, numeroUe);
-            
+
             var etudiant = await _repositoryFactory.EtudiantRepository().FindAsync(record.IdEtudiant);
             if (etudiant == null)
             {
                 throw new EtudiantNotFoundException($"Étudiant avec le numéro {record.IdEtudiant} non trouvé.");
             }
+
             // Recherche de l'UE par son numéro
             var ue = await _repositoryFactory.UeRepository().FindAsync(numeroUe);
             if (ue == null)
             {
                 throw new UeNotFoundException($"UE avec le numéro {numeroUe} non trouvée.");
             }
+
             // Vérification si une note existe déjà pour cet étudiant et cette UE
             var existingNote = await _repositoryFactory.NotesRepository().FindAsync(etudiant.Id, ue.Id);
             if (existingNote != null)
             {
                 Console.WriteLine($"Note existante trouvée pour l'étudiant {etudiant.Id} dans l'UE {ue.Id}. Aucune nouvelle note ajoutée.");
-                return; // Ne rien ajouter si la note existe déjà
+                return;  // Ne rien ajouter si la note existe déjà
             }
+
+            // La note est directement convertie, et si vide ou invalide, elle devient 0
+            float noteValeur = record.Note;
+
+            // Si la note est en dehors de la plage (0 - 20), on lève une exception
+            if (noteValeur < 0 || noteValeur > 20)
+            {
+                throw new ValeurIncorrecteException("La note doit être comprise entre 0 et 20.");
+            }
+
             var note = new Notes
             {
                 UeId = ue.Id,
                 EtudiantId = etudiant.Id,
-                Valeur = record.Note,
+                Valeur = noteValeur,
             };
+
             // Ajout de la note dans le système
-            await _repositoryFactory.NotesRepository().AddNoteAsync(ue.Id,etudiant.Id,note.Valeur);
+            await _repositoryFactory.NotesRepository().AddNoteAsync(ue.Id, etudiant.Id, note.Valeur);
         }
+
+
         public async Task CheckBusinessRules(NotesCsvDto record , long numeroUe) {
             var etudiant = await _repositoryFactory.EtudiantRepository().FindAsync(record.IdEtudiant);
             if (etudiant == null)

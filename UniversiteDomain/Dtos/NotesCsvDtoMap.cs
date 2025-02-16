@@ -1,18 +1,18 @@
 ﻿using CsvHelper.Configuration;
-using UniversiteDomain.Entities;
+using UniversiteDomain.Dtos;
 
-namespace UniversiteDomain.Dtos;
-
-public sealed class NotesCsvDtoMap : ClassMap<NotesCsvDto>
+public class NotesCsvDtoMap : ClassMap<NotesCsvDto>
 {
     public NotesCsvDtoMap()
     {
-        Map(m => m.IdEtudiant).Name("IdEtudiant");
-        Map(m => m.NumeroEtudiant).Name("NumeroEtudiant");
-        Map(m => m.Nom).Name("Nom");
-        Map(m => m.Prenom).Name("Prenom");
-        Map(m => m.Email).Name("Email");
-        Map(m => m.Note).Name("Note");
-        Map(m => m.IntituleUE).Name("IntituleUE");
+        Map(m => m.IdEtudiant).Index(0);
+        Map(m => m.NumeroEtudiant).Index(1);
+        Map(m => m.Nom).Index(2);
+        Map(m => m.Prenom).Index(3);
+        Map(m => m.Email).Index(4);
+        Map(m => m.Note).Index(5)
+            .TypeConverterOption.NullValues("")  
+            .TypeConverter<FloatConverter>();  
+        Map(m => m.IntituleUE).Index(6);
     }
 }
