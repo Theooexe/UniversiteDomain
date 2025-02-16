@@ -19,4 +19,9 @@ public class NotesRepository(UniversiteDbContext context) : Repository<Notes>(co
     {
         await AffecterNoteAsync(etudiant.Id, parcours.Id); 
     }
+
+    public Task<Notes?> FindNotesCompletAsync(float Valeur)
+    {
+        throw new NotImplementedException();
+    }
 }
