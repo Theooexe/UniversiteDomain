@@ -2,22 +2,21 @@
 using UniversiteDomain.DataAdapters.DataAdaptersFactory;
 using UniversiteDomain.Entities;
 
-namespace UniversiteDomain.UseCases.EtudiantUseCases.Get;
+namespace UniversiteDomain.UseCases.ParcoursUseCases.Get;
 
-public class GetEtudiantCompletUseCase(IRepositoryFactory factory)
+public class GetParcoursUseCase(IRepositoryFactory factory)
 {
-    public async Task<Etudiant?> ExecuteAsync(long idEtudiant)
+    public async Task<Parcours?> ExecuteAsync(long Id)
     {
         await CheckBusinessRules();
-        Etudiant? etudiant = await factory.EtudiantRepository().FindEtudiantCompletAsync(idEtudiant);
-        //Etudiant? etudiant=await factory.EtudiantRepository().FindAsync(idEtudiant);
-        return etudiant;
+        Parcours? parcours = await factory.ParcoursRepository().FindParcoursAsync(Id);
+        return parcours;
     }
     private async Task CheckBusinessRules()
     {
         ArgumentNullException.ThrowIfNull(factory);
-        IEtudiantRepository etudiantRepository=factory.EtudiantRepository();
-        ArgumentNullException.ThrowIfNull(etudiantRepository);
+        IParcoursRepository parcoursRepository=factory.ParcoursRepository();
+        ArgumentNullException.ThrowIfNull(parcoursRepository);
     }
     public bool IsAuthorized(string role, IUniversiteUser user, long idEtudiant)
     {

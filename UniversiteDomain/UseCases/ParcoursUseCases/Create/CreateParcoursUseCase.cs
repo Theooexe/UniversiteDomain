@@ -39,4 +39,9 @@ public class CreateParcoursUseCase(IRepositoryFactory factory)
                 throw new InvalidAnneeFormationException(parcours.AnneeFormation + " incorrect - L'année de formation doit être entre 1 et 2");
 
         }
+
+    public bool IsAuthorized(string role)
+    {
+        throw new NotImplementedException();
+    }
 }

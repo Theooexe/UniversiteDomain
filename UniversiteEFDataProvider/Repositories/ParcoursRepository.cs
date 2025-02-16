@@ -111,4 +111,9 @@ public class ParcoursRepository(UniversiteDbContext context) : Repository<Parcou
         await Context.SaveChangesAsync();
         return parcours;
     }
+
+    public Task<Parcours?> FindParcoursAsync(long id)
+    {
+        throw new NotImplementedException();
+    }
 }
