@@ -10,7 +10,6 @@
         // Association avec l'Ue
         public long UeId { get; set; }
         public Ue Ue { get; set; }  // Navigation vers l'entité Ue
-
         
     }
 }

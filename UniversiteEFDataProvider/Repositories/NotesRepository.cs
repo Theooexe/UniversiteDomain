@@ -24,4 +24,9 @@ public class NotesRepository(UniversiteDbContext context) : Repository<Notes>(co
     {
         throw new NotImplementedException();
     }
+
+    public Task AddNoteAsync(long ueId, long etudiantId, object notesE)
+    {
+        throw new NotImplementedException();
+    }
 }
