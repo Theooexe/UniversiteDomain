@@ -11,8 +11,6 @@
       <Folder Include="UseCases\NotesUseCases\Delete\" />
       <Folder Include="UseCases\NotesUseCases\Update\" />
       <Folder Include="UseCases\ParcoursUseCases\Update\" />
-      <Folder Include="UseCases\UeUseCases\Delete\" />
-      <Folder Include="UseCases\UeUseCases\Get\" />
       <Folder Include="UseCases\UeUseCases\Update\" />
     </ItemGroup>
 

@@ -32,4 +32,9 @@ public class CreateUeUseCase(IRepositoryFactory factory)
             if (existe .Any()) throw new DuplicateNumeroUeException(ue.NumeroUe+ " - ce numéro d'Ue est déjà affecté à une Ue");
             
         }
+
+    public bool IsAuthorized(string role)
+    {
+        throw new NotImplementedException();
+    }
 }
