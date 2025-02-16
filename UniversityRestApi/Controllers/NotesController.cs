@@ -13,7 +13,7 @@ namespace UniversityRestApi.Controllers
     [Route("api/[controller]")]
     [ApiController]
 
-    public class NotesControllers(IRepositoryFactory repositoryFactory) : ControllerBase
+    public class NotesController(IRepositoryFactory repositoryFactory) : ControllerBase
     {
         [HttpGet("complet/{id}")]
         public async Task<ActionResult<NotesDto>> GetParcoursAsync(long id)
