@@ -63,5 +63,10 @@ namespace UniversiteDomain.UseCases.NotesUseCases.Create
             // Vérification de la présence du repository
             ArgumentNullException.ThrowIfNull(factory.NotesRepository());
         }
+
+        public bool IsAuthorized(string role)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

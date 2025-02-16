@@ -1,6 +1,6 @@
 ﻿namespace UniversityRestApi.Controllers;
 
-public class NoteController
+public class NotesControllers
 {
     
 }

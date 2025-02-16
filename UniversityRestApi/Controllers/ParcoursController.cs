@@ -4,16 +4,10 @@ using Microsoft.AspNetCore.Mvc;
 using UniversiteDomain.DataAdapters.DataAdaptersFactory;
 using UniversiteDomain.Dtos;
 using UniversiteDomain.Entities;
-using UniversiteDomain.UseCases.EtudiantUseCases.Create;
-using UniversiteDomain.UseCases.EtudiantUseCases.Delete;
-using UniversiteDomain.UseCases.EtudiantUseCases.Get;
+using UniversiteDomain.UseCases.ParcoursUseCases.Delete;
 using UniversiteDomain.UseCases.ParcoursUseCases.Create;
 using UniversiteDomain.UseCases.ParcoursUseCases.Get;
-using UniversiteDomain.UseCases.SecurityUseCases.Create;
 using UniversiteDomain.UseCases.SecurityUseCases.Get;
-using UniversiteEFDataProvider.Entities;
-
-
 
 namespace UniversityRestApi.Controllers
 { 
